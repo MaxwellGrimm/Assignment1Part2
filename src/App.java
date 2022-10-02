@@ -56,12 +56,13 @@ public class App {
         }
         else{
             //recurses on the left side of the array
-            maxLeft = MostProfitableOneArray(values, startIndex, endIndex/2, (endIndex/2 - startIndex));
+            maxLeft = MostProfitableOneArray(values, startIndex, currentLength/2, (currentLength/2 - startIndex));
             //recurses on the right side of the array
-            maxRight = MostProfitableOneArray(values, endIndex, endIndex + currentLength, ((startIndex + endIndex/2) - endIndex/2));
+            maxRight = MostProfitableOneArray(values, currentLength/2, endIndex, (currentLength/2 - startIndex));
             
             int min = Integer.MAX_VALUE;
 
+            
             for(int i=startIndex; i < endIndex/2; i++){
                 if(values[i] < min)
                     min = values[i];
@@ -75,6 +76,7 @@ public class App {
 
             lastCase = max - min;
 
+            //System.out.println(Math.max(lastCase, Math.max(maxLeft, maxRight)));
             return Math.max(lastCase, Math.max(maxLeft, maxRight));
         }
     }
@@ -89,8 +91,8 @@ public class App {
                 vals[i] = r.nextInt(Integer.MAX_VALUE);
             }
             //you have your array called vals, solve the problem here
-            //int profit = MostProfitable(vals);
-            //System.out.println(p-481 + ": " + profit);
+            int profit = MostProfitable(vals);
+            System.out.println(p-481 + ": " + profit);
             int profit1 = MostProfitableOneArray(vals, 0, vals.length, vals.length);
             System.out.println(p-481 + ": " + profit1);
         }
