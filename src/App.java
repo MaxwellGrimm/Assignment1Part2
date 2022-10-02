@@ -83,7 +83,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         for(int p=482; p<488; p++){
             Random r = new Random(p);
-            int size = 100000000;
+            int size = 10000000;
             int vals[] = new int[size];
             for(int i=0; i<size; i++){
                 vals[i] = r.nextInt(Integer.MAX_VALUE);
