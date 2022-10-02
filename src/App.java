@@ -43,7 +43,7 @@ public class App {
         }
     }
 
-    public static int MostProfitableOneArray(int[] values, int startIndex, int endIndex){
+    public static int MostProfitableOneArray(int[] values, int startIndex, int endIndex, int currentLength){
         //this is a holder for the maxProfit on the left half of the array
         int maxLeft = 0;
         //this is a holder for the maxProfit on the right half of the array
@@ -51,18 +51,18 @@ public class App {
         //this is for the 3rd case where the most profit bought on the left half and sold on the right half
         int lastCase = 0;
 
-        if(endIndex - startIndex <= 1){
+        if(currentLength <= 1){
             return 0;
         }
         else{
-            //creates a copy of the left side of the array
-            maxLeft = MostProfitableOneArray(values, startIndex, endIndex/2);
-            //creates a copy of the right side of the array
-            maxRight = MostProfitableOneArray(values, endIndex/2, startIndex + endIndex/2);
+            //recurses on the left side of the array
+            maxLeft = MostProfitableOneArray(values, startIndex, endIndex/2, (endIndex/2 - startIndex));
+            //recurses on the right side of the array
+            maxRight = MostProfitableOneArray(values, endIndex, endIndex + currentLength, ((startIndex + endIndex/2) - endIndex/2));
             
             int min = Integer.MAX_VALUE;
 
-            for(int i=0; i < endIndex/2; i++){
+            for(int i=startIndex; i < endIndex/2; i++){
                 if(values[i] < min)
                     min = values[i];
             }
@@ -83,15 +83,15 @@ public class App {
     public static void main(String[] args) throws Exception {
         for(int p=482; p<488; p++){
             Random r = new Random(p);
-            int size = 100;
+            int size = 100000000;
             int vals[] = new int[size];
             for(int i=0; i<size; i++){
                 vals[i] = r.nextInt(Integer.MAX_VALUE);
             }
             //you have your array called vals, solve the problem here
-            int profit = MostProfitable(vals);
-            System.out.println(p-481 + ": " + profit);
-            int profit1 = MostProfitableOneArray(vals, 1, vals.length);
+            //int profit = MostProfitable(vals);
+            //System.out.println(p-481 + ": " + profit);
+            int profit1 = MostProfitableOneArray(vals, 0, vals.length, vals.length);
             System.out.println(p-481 + ": " + profit1);
         }
     }
